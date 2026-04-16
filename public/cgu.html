@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<title>CGU — Ecowash Dieufé</title><style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--lime:#2ecc71;--green-dark:#1a5c2e;--black:#0A0A0A;--dark:#0f1a12;--card:#131f16;--white:#f0faf2;--muted:#6b8c73;--border:#1e3326;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--black);color:var(--white);line-height:1.7;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(46,204,113,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(46,204,113,0.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0.8rem 3rem;background:rgba(10,10,10,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.05em;color:var(--white);text-decoration:none;}
+.nav-logo span{color:var(--lime);}
+.nav-back{font-size:0.78rem;font-weight:600;color:var(--muted);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--border);padding:0.45rem 1rem;clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);transition:all 0.2s;}
+.nav-back:hover{border-color:var(--lime);color:var(--lime);}
+.page-wrap{max-width:860px;margin:0 auto;padding:7rem 2rem 5rem;position:relative;z-index:1;}
+.doc-header{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.doc-eyebrow{font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--lime);margin-bottom:0.6rem;}
+.doc-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,4rem);line-height:1;letter-spacing:0.02em;color:var(--white);margin-bottom:0.8rem;}
+.doc-meta{font-size:0.82rem;color:var(--muted);}
+.doc-meta span{color:var(--lime);font-weight:600;}
+.doc-intro{background:rgba(46,204,113,0.06);border-left:3px solid var(--lime);padding:1.2rem 1.5rem;margin-bottom:2.5rem;font-size:0.9rem;color:var(--muted);line-height:1.7;}
+h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.05em;color:var(--lime);margin:2.5rem 0 1rem;padding-bottom:0.4rem;border-bottom:1px solid var(--border);}
+h3{font-size:1rem;font-weight:700;color:var(--white);margin:1.8rem 0 0.6rem;}
+p{font-size:0.9rem;color:var(--muted);margin-bottom:1rem;text-align:justify;}
+ul,ol{padding-left:1.5rem;margin-bottom:1rem;}
+li{font-size:0.88rem;color:var(--muted);margin-bottom:0.4rem;line-height:1.6;}
+li::marker{color:var(--lime);}
+.info-box{background:var(--card);border:1px solid var(--border);padding:1.5rem;margin:1.5rem 0;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.info-box p{margin:0;font-size:0.85rem;}
+.info-box strong{color:var(--lime);display:block;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;}
+.dpo-box{background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.3);padding:1.5rem 2rem;margin:2rem 0;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.dpo-box .dpo-label{font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--lime);margin-bottom:0.8rem;display:block;}
+.dpo-box .dpo-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--white);letter-spacing:0.05em;margin-bottom:0.5rem;}
+.dpo-box p{margin:0;font-size:0.85rem;color:var(--muted);}
+.rights-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin:1.5rem 0;}
+.right-item{background:var(--card);padding:1.2rem;transition:background 0.2s;}
+.right-item:hover{background:#182b1e;}
+.right-item .ri-title{font-size:0.8rem;font-weight:700;color:var(--lime);margin-bottom:0.3rem;display:flex;align-items:center;gap:0.4rem;}
+.right-item p{font-size:0.8rem;margin:0;color:var(--muted);}
+.cookie-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.82rem;}
+.cookie-table th{background:var(--dark);color:var(--lime);padding:0.7rem 1rem;text-align:left;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.cookie-table td{padding:0.8rem 1rem;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top;}
+.cookie-table tr:hover td{background:rgba(46,204,113,0.03);}
+.badge{display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.6rem;clip-path:polygon(3px 0%,100% 0%,calc(100% - 3px) 100%,0% 100%);}
+.badge-green{background:rgba(46,204,113,0.12);color:var(--lime);}
+.badge-orange{background:rgba(255,107,43,0.12);color:#FF6B2B;}
+.badge-blue{background:rgba(0,180,216,0.12);color:#00b4d8;}
+.toc{background:var(--card);border:1px solid var(--border);padding:1.5rem 2rem;margin-bottom:2.5rem;}
+.toc-title{font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--lime);margin-bottom:1rem;}
+.toc a{display:block;font-size:0.85rem;color:var(--muted);text-decoration:none;padding:0.25rem 0;border-bottom:1px solid var(--border);transition:color 0.2s;}
+.toc a:last-child{border-bottom:none;}
+.toc a:hover{color:var(--lime);}
+.toc a span{color:var(--lime);margin-right:0.5rem;font-family:'Bebas Neue',sans-serif;}
+footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;margin-top:4rem;}
+.fl{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--white);}
+.fl span{color:var(--lime);}
+.fc{font-size:0.75rem;color:var(--muted);}
+.flinks{display:flex;gap:1.5rem;list-style:none;flex-wrap:wrap;}
+.flinks a{font-size:0.75rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.flinks a:hover{color:var(--lime);}
+@media(max-width:640px){nav{padding:0.8rem 1.2rem;}.page-wrap{padding:5rem 1.2rem 3rem;}.rights-grid{grid-template-columns:1fr;}footer{padding:1.5rem;flex-direction:column;text-align:center;}}
+</style>
+
+
+<nav>
+  <a href="index.html" class="nav-logo">ECO<span>WASH</span> DIEUFÉ</a>
+  <a href="index.html" class="nav-back">← Retour au site</a>
+</nav>
+
+<div class="page-wrap">
+  <div class="doc-header">
+    <div class="doc-eyebrow">Documents légaux</div>
+    <div class="doc-title">CONDITIONS GÉNÉRALES<br>D'UTILISATION (CGU)</div>
+    <div class="doc-meta">Version en vigueur au <span>15 avril 2026</span> · Centre Dieufé Avenir — Ecowash Dieufé</div>
+  </div>
+
+  <div class="doc-intro">
+    Les présentes CGU régissent l'accès et l'utilisation du site Ecowash Dieufé et de ses services. En accédant au site, l'utilisateur accepte sans réserve les présentes conditions.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Sommaire</div>
+    <a href="#art1"><span>01</span>Objet</a>
+    <a href="#art2"><span>02</span>Acceptation</a>
+    <a href="#art3"><span>03</span>Accès au site</a>
+    <a href="#art4"><span>04</span>Description des services</a>
+    <a href="#art5"><span>05</span>Réservation</a>
+    <a href="#art6"><span>06</span>Tarifs et paiement</a>
+    <a href="#art7"><span>07</span>Annulation et report</a>
+    <a href="#art8"><span>08</span>Obligations de l'utilisateur</a>
+    <a href="#art9"><span>09</span>Responsabilité d'Ecowash</a>
+    <a href="#art10"><span>10</span>Propriété intellectuelle</a>
+    <a href="#art11"><span>11</span>Données personnelles & DPO</a>
+    <a href="#art12"><span>12</span>Droit applicable</a>
+    <a href="#art13"><span>13</span>Contact</a>
+  </div>
+
+  <h2 id="art1">Article 01 — Objet</h2>
+  <p>Les présentes Conditions Générales d'Utilisation définissent les conditions et modalités d'utilisation du site web Ecowash Dieufé (ci-après "le Site"), ainsi que les droits et obligations des parties dans ce cadre.</p>
+
+  <h2 id="art2">Article 02 — Acceptation</h2>
+  <p>L'accès et l'utilisation du Site impliquent l'acceptation pleine et entière des présentes CGU. Centre Dieufé Avenir se réserve le droit de les modifier à tout moment. Les modifications prennent effet dès leur publication sur le Site. L'utilisateur est invité à les consulter régulièrement.</p>
+
+  <h2 id="art3">Article 03 — Accès au site</h2>
+  <p>Le Site est accessible gratuitement à tout utilisateur disposant d'un accès à internet. Les frais de connexion sont à la charge exclusive de l'utilisateur. L'accès peut être interrompu à tout moment pour maintenance, mise à jour ou raison technique, sans préavis ni indemnité.</p>
+
+  <h2 id="art4">Article 04 — Description des services</h2>
+  <h3>4.1 Formules de lavage</h3>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin:1rem 0;">
+    <div style="background:var(--card);padding:1.2rem;text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--lime);margin-bottom:0.3rem;">SILVER</div>
+      <div style="font-size:1.4rem;font-weight:700;color:var(--white);">3 000 F</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:0.3rem;">Extérieur complet</div>
+    </div>
+    <div style="background:var(--card);padding:1.2rem;text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#00b4d8;margin-bottom:0.3rem;">GOLD</div>
+      <div style="font-size:1.4rem;font-weight:700;color:var(--white);">5 000 F</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:0.3rem;">Int. + Ext. complet</div>
+    </div>
+    <div style="background:var(--card);padding:1.2rem;text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#b39ddb;margin-bottom:0.3rem;">DIAMOND</div>
+      <div style="font-size:1.4rem;font-weight:700;color:var(--white);">20 000 F</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:0.3rem;">Premium + céramique</div>
+    </div>
+  </div>
+  <ul>
+    <li>Pack fidélité : 4 lavages premium — <strong style="color:var(--lime)">15 000 FCFA</strong></li>
+    <li>Programme fidélité : <strong style="color:var(--lime)">10 lavages effectués = 1 lavage gratuit</strong></li>
+  </ul>
+  <h3>4.2 Modalités d'intervention</h3>
+  <ul>
+    <li>Le service est réalisé exclusivement à domicile ou sur le lieu désigné par le client</li>
+    <li>Le client doit assurer l'accès au véhicule à l'heure convenue</li>
+    <li>Toute absence non signalée dans les 2 heures précédant l'intervention pourra entraîner une indemnité forfaitaire</li>
+  </ul>
+
+  <h2 id="art5">Article 05 — Réservation</h2>
+  <ol style="padding-left:1.5rem;margin-bottom:1rem;">
+    <li style="margin-bottom:0.6rem;color:var(--muted);">L'utilisateur remplit le formulaire de réservation en ligne ou contacte Ecowash via WhatsApp</li>
+    <li style="margin-bottom:0.6rem;color:var(--muted);">La réservation est confirmée par un agent Ecowash dans un délai de <strong style="color:var(--lime)">30 minutes</strong></li>
+    <li style="margin-bottom:0.6rem;color:var(--muted);">L'intervention est réalisée au créneau convenu mutuellement</li>
+    <li style="margin-bottom:0.6rem;color:var(--muted);">Le paiement s'effectue à la fin de l'intervention ou via paiement mobile (Wave, Orange Money)</li>
+  </ol>
+
+  <h2 id="art6">Article 06 — Tarifs et paiement</h2>
+  <p>Les tarifs indiqués sont en <strong style="color:var(--white)">Francs CFA (F CFA)</strong>, toutes taxes comprises. Centre Dieufé Avenir se réserve le droit de modifier ses tarifs à tout moment, les nouvelles grilles tarifaires s'appliquant aux réservations effectuées après leur publication.</p>
+  <p><strong style="color:var(--white)">Modes de paiement acceptés :</strong> espèces, Wave, Orange Money. Aucun paiement anticipé n'est requis pour les formules individuelles.</p>
+
+  <h2 id="art7">Article 07 — Annulation et report</h2>
+  <ul>
+    <li>Annulation <strong style="color:var(--lime)">gratuite</strong> jusqu'à 2 heures avant l'heure convenue</li>
+    <li>Annulation moins de 2 heures avant : une indemnité forfaitaire de <strong style="color:var(--white)">500 F CFA</strong> pourra être demandée pour les frais de déplacement</li>
+    <li>Report possible sans frais avec un préavis de 2 heures minimum</li>
+    <li>En cas d'empêchement de notre part : report gratuit ou remboursement intégral proposé</li>
+  </ul>
+
+  <h2 id="art8">Article 08 — Obligations de l'utilisateur</h2>
+  <p>L'utilisateur s'engage à :</p>
+  <ul>
+    <li>Fournir des informations exactes et complètes lors de la réservation</li>
+    <li>Assurer l'accessibilité du véhicule à l'heure et au lieu convenus</li>
+    <li>Informer Ecowash de tout état particulier du véhicule susceptible d'affecter la prestation</li>
+    <li>Ne pas utiliser le Site à des fins illicites, frauduleuses ou contraires aux présentes CGU</li>
+    <li>Respecter les droits de propriété intellectuelle du Site</li>
+  </ul>
+
+  <h2 id="art9">Article 09 — Responsabilité d'Ecowash Dieufé</h2>
+  <p>Ecowash Dieufé s'engage à réaliser les prestations avec soin et professionnalisme. Notre responsabilité est limitée au montant de la prestation en cas de dommage prouvé et directement causé par notre intervention. Nous déclinons toute responsabilité pour les dommages préexistants non signalés avant l'intervention.</p>
+
+  <h2 id="art10">Article 10 — Propriété intellectuelle</h2>
+  <p>Tous les éléments du Site (logo Ecowash Dieufé, textes, images, charte graphique, slogan "La preuve par l'action") sont la propriété exclusive de Centre Dieufé Avenir. Toute reproduction totale ou partielle sans autorisation écrite préalable est interdite.</p>
+
+  <h2 id="art11">Article 11 — Données personnelles & DPO</h2>
+  <p>Le traitement des données personnelles des utilisateurs est régi par notre <a href="confidentialite.html" style="color:var(--lime)">Politique de Confidentialité</a>.</p>
+  <div class="dpo-box">
+    <span class="dpo-label">🛡 Délégué à la Protection des Données (DPO)</span>
+    <div class="dpo-name">Henry Pierre Diouf</div>
+    <p>Pour exercer vos droits (accès, rectification, suppression, opposition) : <a href="mailto:jefeavenir@gmail.com" style="color:var(--lime)">jefeavenir@gmail.com</a></p>
+  </div>
+
+  <h2 id="art12">Article 12 — Droit applicable et juridiction</h2>
+  <p>Les présentes CGU sont soumises au <strong style="color:var(--white)">droit sénégalais</strong>. En cas de litige, les parties s'engagent à rechercher une solution amiable avant toute action judiciaire. À défaut d'accord, les <strong style="color:var(--white)">tribunaux compétents de Dakar</strong> seront seuls compétents.</p>
+
+  <h2 id="art13">Article 13 — Contact</h2>
+  <ul>
+    <li>📧 Email : <a href="mailto:jefeavenir@gmail.com" style="color:var(--lime)">jefeavenir@gmail.com</a></li>
+    <li>📞 Téléphone : 77 654 18 32 / 76 945 00 43</li>
+    <li>💬 WhatsApp : <a href="https://wa.me/221776541832" style="color:var(--lime)" target="_blank">77 654 18 32</a></li>
+    <li>📍 Adresse : 257 Cité Aliou Sow, Golf Sud, Dakar, Sénégal</li>
+  </ul>
+</div>
+
+<footer>
+  <div class="fl">ECO<span>WASH</span> DIEUFÉ</div>
+  <p class="fc">© 2025 Centre Dieufé Avenir · RCCM SN DKR 2017 A 18263 · Dakar, Sénégal</p>
+  <ul class="flinks">
+    <li><a href="mentions-legales.html">Mentions légales</a></li>
+    <li><a href="confidentialite.html">Confidentialité</a></li>
+    <li><a href="cgu.html">CGU</a></li>
+    <li><a href="cookies.html">Cookies</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</footer>
+
+</body></html>

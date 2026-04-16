@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Ecowash Dieufé</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--lime:#C8F400;--electric:#00E5FF;--orange:#FF6B2B;--black:#0A0A0A;--dark:#111411;--card:#161A16;--white:#F8FFF0;--muted:#7A8C7A;--border:#2A332A;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--black);color:var(--white);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(200,244,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(200,244,0,0.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+
+header{background:var(--dark);border-bottom:1px solid var(--border);padding:1.2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.05em;color:var(--white);}
+.logo span{color:var(--lime);}
+.dot{width:8px;height:8px;background:var(--lime);border-radius:50%;display:inline-block;margin:0 0.4rem;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.5);opacity:0.6;}}
+.header-right{display:flex;align-items:center;gap:1rem;}
+.badge-live{background:rgba(200,244,0,0.12);color:var(--lime);border:1px solid rgba(200,244,0,0.3);font-size:0.7rem;font-weight:700;letter-spacing:0.12em;padding:0.3rem 0.8rem;clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);}
+.btn-refresh{background:var(--lime);color:var(--black);border:none;padding:0.5rem 1.2rem;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:background 0.2s;}
+.btn-refresh:hover{background:#d4ff00;}
+
+main{padding:2rem 2.5rem;position:relative;z-index:1;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:2rem;}
+.stat-box{background:var(--card);padding:1.8rem 2rem;transition:background 0.2s;}
+.stat-box:hover{background:#1a1f1a;}
+.stat-label{font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--lime);}
+.stat-val.blue{color:var(--electric);}
+.stat-val.orange{color:var(--orange);}
+.stat-val.white{color:var(--white);}
+
+/* FILTERS */
+.filters{display:flex;gap:0.8rem;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center;}
+.filters span{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.filter-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:0.45rem 1rem;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;cursor:pointer;clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);transition:all 0.2s;}
+.filter-btn.active,.filter-btn:hover{background:var(--lime);color:var(--black);border-color:var(--lime);}
+
+/* TABLE */
+.table-wrap{background:var(--card);border:1px solid var(--border);overflow:hidden;}
+.table-header{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);}
+.table-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.05em;color:var(--white);}
+.table-count{font-size:0.78rem;color:var(--muted);}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--dark);}
+th{padding:0.8rem 1.2rem;text-align:left;font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
+td{padding:1rem 1.2rem;font-size:0.85rem;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(200,244,0,0.03);}
+.id-cell{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--lime);}
+.name-cell{font-weight:600;color:var(--white);}
+.phone-cell{color:var(--muted);font-size:0.82rem;}
+.formule-badge{display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.7rem;clip-path:polygon(3px 0%,100% 0%,calc(100% - 3px) 100%,0% 100%);}
+.f-rapide{background:rgba(200,244,0,0.12);color:var(--lime);}
+.f-premium{background:rgba(0,229,255,0.12);color:var(--electric);}
+.f-prestige{background:rgba(255,107,43,0.12);color:var(--orange);}
+.statut-badge{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.8rem;clip-path:polygon(3px 0%,100% 0%,calc(100% - 3px) 100%,0% 100%);}
+.s-attente{background:rgba(255,166,0,0.12);color:#FFA600;}
+.s-confirmee{background:rgba(0,229,255,0.12);color:var(--electric);}
+.s-terminee{background:rgba(200,244,0,0.12);color:var(--lime);}
+.s-annulee{background:rgba(255,107,43,0.12);color:var(--orange);}
+.date-cell{font-size:0.78rem;color:var(--muted);}
+.action-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.3rem 0.7rem;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;cursor:pointer;clip-path:polygon(3px 0%,100% 0%,calc(100% - 3px) 100%,0% 100%);transition:all 0.2s;margin-right:0.3rem;}
+.action-btn:hover{border-color:var(--lime);color:var(--lime);}
+.action-btn.del:hover{border-color:var(--orange);color:var(--orange);}
+.empty{text-align:center;padding:4rem;color:var(--muted);}
+.empty-icon{font-size:3rem;display:block;margin-bottom:1rem;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--dark);border:1px solid var(--border);padding:2rem;width:100%;max-width:480px;position:relative;}
+.modal h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--white);margin-bottom:1.5rem;letter-spacing:0.05em;}
+.modal-field{margin-bottom:1rem;}
+.modal-field label{display:block;font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--lime);margin-bottom:0.3rem;}
+.modal-field p{font-size:0.9rem;color:var(--white);background:rgba(255,255,255,0.04);padding:0.7rem 1rem;border:1px solid var(--border);}
+.modal-select{width:100%;background:var(--card);border:1px solid var(--border);padding:0.7rem 1rem;color:var(--white);font-family:'Space Grotesk',sans-serif;font-size:0.88rem;outline:none;margin-top:0.3rem;}
+.modal-select option{background:var(--dark);}
+.modal-btns{display:flex;gap:0.8rem;margin-top:1.5rem;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
+.modal-close:hover{color:var(--white);}
+
+/* Loading */
+.loading{text-align:center;padding:3rem;color:var(--muted);font-size:0.9rem;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ECO<span>WASH</span> <span class="dot"></span> DIEUFÉ</div>
+  <div class="header-right">
+    <span class="badge-live">● DASHBOARD ADMIN</span>
+    <button class="btn-refresh" onclick="chargerDonnees()">↻ ACTUALISER</button>
+  </div>
+</header>
+
+<main>
+  <!-- Stats -->
+  <div class="stats-grid" id="stats-grid">
+    <div class="stat-box"><div class="stat-label">Total réservations</div><div class="stat-val white" id="s-total">—</div></div>
+    <div class="stat-box"><div class="stat-label">En attente</div><div class="stat-val orange" id="s-attente">—</div></div>
+    <div class="stat-box"><div class="stat-label">Confirmées</div><div class="stat-val blue" id="s-confirmee">—</div></div>
+    <div class="stat-box"><div class="stat-label">Terminées</div><div class="stat-val" id="s-terminee">—</div></div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <span>Filtrer :</span>
+    <button class="filter-btn active" onclick="filtrer('tous', this)">Tous</button>
+    <button class="filter-btn" onclick="filtrer('en_attente', this)">En attente</button>
+    <button class="filter-btn" onclick="filtrer('confirmee', this)">Confirmées</button>
+    <button class="filter-btn" onclick="filtrer('terminee', this)">Terminées</button>
+    <button class="filter-btn" onclick="filtrer('annulee', this)">Annulées</button>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <div class="table-header">
+      <span class="table-title">RÉSERVATIONS</span>
+      <span class="table-count" id="table-count">Chargement...</span>
+    </div>
+    <div id="table-body">
+      <div class="loading">Chargement des données...</div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal détail -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="fermerModal()">✕</button>
+    <h3>DÉTAIL RÉSERVATION</h3>
+    <div id="modal-content"></div>
+    <div class="modal-btns">
+      <button class="btn-refresh" onclick="mettreAJourStatut()">METTRE À JOUR</button>
+      <button class="action-btn del" onclick="supprimerReservation()">SUPPRIMER</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let toutesReservations = [];
+let filtreActuel = 'tous';
+let reservationSelectionnee = null;
+
+function getFormuleClass(formule) {
+  if (formule.includes('Rapide')) return 'f-rapide';
+  if (formule.includes('Premium')) return 'f-premium';
+  if (formule.includes('Prestige')) return 'f-prestige';
+  return 'f-rapide';
+}
+
+function getStatutClass(statut) {
+  return { en_attente: 's-attente', confirmee: 's-confirmee', terminee: 's-terminee', annulee: 's-annulee' }[statut] || 's-attente';
+}
+
+function getStatutLabel(statut) {
+  return { en_attente: '⏳ En attente', confirmee: '✅ Confirmée', terminee: '🏁 Terminée', annulee: '❌ Annulée' }[statut] || statut;
+}
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+async function chargerDonnees() {
+  try {
+    const [resResa, resStats] = await Promise.all([
+      fetch('/api/reservations'),
+      fetch('/api/stats')
+    ]);
+    const dataResa = await resResa.json();
+    const dataStats = await resStats.json();
+
+    toutesReservations = dataResa.reservations || [];
+
+    // Stats
+    const s = dataStats.stats;
+    document.getElementById('s-total').textContent = s.total || 0;
+    document.getElementById('s-attente').textContent = s.en_attente || 0;
+    document.getElementById('s-confirmee').textContent = s.confirmees || 0;
+    document.getElementById('s-terminee').textContent = s.terminees || 0;
+
+    afficherTableau();
+  } catch (e) {
+    document.getElementById('table-body').innerHTML = `<div class="empty"><span class="empty-icon">⚠️</span>Impossible de se connecter au serveur.<br><small>Vérifiez que server.js est démarré.</small></div>`;
+  }
+}
+
+function filtrer(statut, btn) {
+  filtreActuel = statut;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  afficherTableau();
+}
+
+function afficherTableau() {
+  const liste = filtreActuel === 'tous'
+    ? toutesReservations
+    : toutesReservations.filter(r => r.statut === filtreActuel);
+
+  document.getElementById('table-count').textContent = `${liste.length} résultat${liste.length > 1 ? 's' : ''}`;
+
+  if (liste.length === 0) {
+    document.getElementById('table-body').innerHTML = `<div class="empty"><span class="empty-icon">📋</span>Aucune réservation trouvée.</div>`;
+    return;
+  }
+
+  document.getElementById('table-body').innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Client</th>
+          <th>Téléphone</th>
+          <th>Formule</th>
+          <th>Statut</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${liste.map(r => `
+          <tr>
+            <td class="id-cell">${r.id}</td>
+            <td class="name-cell">${r.nom}</td>
+            <td class="phone-cell">${r.telephone}</td>
+            <td><span class="formule-badge ${getFormuleClass(r.formule)}">${r.formule.split('—')[0].trim()}</span></td>
+            <td><span class="statut-badge ${getStatutClass(r.statut)}">${getStatutLabel(r.statut)}</span></td>
+            <td class="date-cell">${formatDate(r.date_creation)}</td>
+            <td>
+              <button class="action-btn" onclick="ouvrirModal(${r.id})">DÉTAIL</button>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function ouvrirModal(id) {
+  const r = toutesReservations.find(x => x.id === id);
+  if (!r) return;
+  reservationSelectionnee = r;
+
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-field"><label>Nom</label><p>${r.nom}</p></div>
+    <div class="modal-field"><label>Téléphone</label><p>${r.telephone}</p></div>
+    <div class="modal-field"><label>Formule</label><p>${r.formule}</p></div>
+    <div class="modal-field"><label>Adresse & disponibilités</label><p>${r.adresse || '—'}</p></div>
+    <div class="modal-field"><label>Date de réservation</label><p>${formatDate(r.date_creation)}</p></div>
+    <div class="modal-field">
+      <label>Changer le statut</label>
+      <select class="modal-select" id="modal-statut">
+        <option value="en_attente" ${r.statut === 'en_attente' ? 'selected' : ''}>⏳ En attente</option>
+        <option value="confirmee" ${r.statut === 'confirmee' ? 'selected' : ''}>✅ Confirmée</option>
+        <option value="terminee" ${r.statut === 'terminee' ? 'selected' : ''}>🏁 Terminée</option>
+        <option value="annulee" ${r.statut === 'annulee' ? 'selected' : ''}>❌ Annulée</option>
+      </select>
+    </div>
+  `;
+  document.getElementById('modal').classList.add('open');
+}
+
+function fermerModal() {
+  document.getElementById('modal').classList.remove('open');
+  reservationSelectionnee = null;
+}
+
+async function mettreAJourStatut() {
+  if (!reservationSelectionnee) return;
+  const statut = document.getElementById('modal-statut').value;
+  try {
+    const res = await fetch(`/api/reservations/${reservationSelectionnee.id}/statut`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ statut })
+    });
+    const data = await res.json();
+    if (data.success) {
+      fermerModal();
+      chargerDonnees();
+    }
+  } catch (e) {
+    alert('Erreur lors de la mise à jour.');
+  }
+}
+
+async function supprimerReservation() {
+  if (!reservationSelectionnee) return;
+  if (!confirm(`Supprimer la réservation #${reservationSelectionnee.id} de ${reservationSelectionnee.nom} ?`)) return;
+  try {
+    const res = await fetch(`/api/reservations/${reservationSelectionnee.id}`, { method: 'DELETE' });
+    const data = await res.json();
+    if (data.success) {
+      fermerModal();
+      chargerDonnees();
+    }
+  } catch (e) {
+    alert('Erreur lors de la suppression.');
+  }
+}
+
+// Fermer le modal en cliquant dehors
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) fermerModal();
+});
+
+// Chargement initial
+chargerDonnees();
+
+// Auto-refresh toutes les 30 secondes
+setInterval(chargerDonnees, 30000);
+</script>
+</body>
+</html>
