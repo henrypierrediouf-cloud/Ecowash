@@ -100,6 +100,9 @@
     <li><a href="/apropos.html">À Propos</a></li>
     <li><a href="/tarifs.html">Tarifs</a></li>
     <li><a href="/contact.html">Contact</a></li>
+    <li><a href="/mentions-legales.html">Mentions légales</a></li>
+    <li><a href="/confidentialite.html">Confidentialité</a></li>
+    <li><a href="/cookies.html">Cookies</a></li>
   </ul>
 </footer>
 
@@ -111,5 +114,18 @@
 function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open');}
 document.getElementById('hamburger').addEventListener('click',function(){this.classList.toggle('open');document.getElementById('mobile-menu').classList.toggle('open');});
 </script>
+
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:400;background:rgba(8,12,8,0.97);border-top:2px solid #2ecc71;padding:1rem 2.5rem;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;backdrop-filter:blur(12px);">
+  <div>
+    <div style="font-size:0.85rem;font-weight:700;color:#f4faf5;margin-bottom:0.25rem;">Ce site utilise des cookies</div>
+    <p style="font-size:0.76rem;color:#6b8c73;margin:0;line-height:1.5;">Pour ameliorer votre experience. <a href="/cookies.html" style="color:#2ecc71;">En savoir plus</a></p>
+  </div>
+  <div style="display:flex;gap:0.7rem;flex-shrink:0;">
+    <button onclick="ecoCookies(0)" style="background:none;border:1px solid #1c2e1f;color:#6b8c73;padding:0.5rem 1.2rem;font-size:0.78rem;font-weight:600;border-radius:4px;cursor:pointer;font-family:inherit;">Refuser</button>
+    <button onclick="ecoCookies(1)" style="background:#2ecc71;border:none;color:#080c08;padding:0.5rem 1.4rem;font-size:0.78rem;font-weight:700;border-radius:4px;cursor:pointer;font-family:inherit;">Accepter</button>
+  </div>
+</div>
+<script>(function(){if(!localStorage.getItem("eco_ck"))document.getElementById("cookie-banner").style.display="flex";})();function ecoCookies(v){localStorage.setItem("eco_ck",v?"ok":"no");document.getElementById("cookie-banner").style.display="none";}</script>
+
 </body>
 </html>
